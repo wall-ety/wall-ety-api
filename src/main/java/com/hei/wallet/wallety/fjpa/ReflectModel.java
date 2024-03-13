@@ -4,6 +4,7 @@ import com.hei.wallet.wallety.fjpa.annotation.Column;
 import com.hei.wallet.wallety.fjpa.annotation.Entity;
 import com.hei.wallet.wallety.fjpa.annotation.Id;
 import com.hei.wallet.wallety.fjpa.annotation.Relation;
+import lombok.Getter;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -20,6 +21,7 @@ import java.util.stream.Collectors;
  * Used to get metadata about the generic class
  * @param <T>
  */
+@Getter
 public class ReflectModel<T>{
     private final Class<T> type;
     private final String tableName;
@@ -148,22 +150,5 @@ public class ReflectModel<T>{
             attributes.add(attribute);
         });
         return attributes;
-    }
-
-
-    public Class<T> getType() {
-        return type;
-    }
-
-    public String getTableName() {
-        return tableName;
-    }
-
-    public List<Attribute> getAttributes() {
-        return attributes;
-    }
-
-    public Attribute getIdAttribute() {
-        return idAttribute;
     }
 }
