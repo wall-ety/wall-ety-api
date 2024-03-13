@@ -1,0 +1,43 @@
+openapi: 3.0.3
+info:
+  version: 1.0.0
+  title: wall-ety
+  description: Manage your money
+paths:
+  /ping:
+    get:
+      tags:
+        - Health
+      summary: Pong
+      operationId: ping
+      responses:
+        '200':
+          description: Pong
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: pong
+  /dummy-table:
+    get:
+      tags:
+        - Health
+      summary: Get all dummies
+      operationId: getDummies
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dummy'
+components:
+  schemas:
+    Dummy:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
