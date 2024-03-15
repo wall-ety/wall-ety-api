@@ -1,0 +1,3 @@
+# Wallety
+
+![MCD](./MCD.png)
