@@ -1,0 +1,94 @@
+openapi: 3.0.3
+info:
+  version: 1.0.0
+  title: wallety-api
+  description: Api that can manage your money
+paths:
+  /ping:
+    get:
+      tags:
+        - Health
+      summary: Pong
+      operationId: ping
+      responses:
+        '200':
+          description: Pong
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: pong
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /dummy-table:
+    get:
+      tags:
+        - Health
+      summary: Get all dummies
+      operationId: getDummies
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dummy'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+components:
+  schemas:
+    Dummy:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+  responses:
+    BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          example:
+            error: "Invalid request parameters"
+    Forbidden:
+      description: Forbidden
+      content:
+        application/json:
+          example:
+            error: "Access forbidden"
+    NotFound:
+      description: Not Found
+      content:
+        application/json:
+          example:
+            error: "Resource not found"
+    TooManyRequests:
+      description: Too Many Requests
+      content:
+        application/json:
+          example:
+            error: "Too many requests, please try again later"
+    InternalServerError:
+      description: Internal Server Error
+      content:
+        application/json:
+          example:
+            error: "Internal server error occurred"
