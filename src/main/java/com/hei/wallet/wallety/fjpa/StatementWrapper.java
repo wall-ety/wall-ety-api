@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class StatementWrapper {
     final private Connection connection;
+
     public PreparedStatement prepared(String query, List<Object> values) throws SQLException {
         PreparedStatement statement = connection.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
         if(values == null)
