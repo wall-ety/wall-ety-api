@@ -5,5 +5,5 @@ CREATE TABLE IF NOT EXISTS "bank"(
     "updated_at" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     "authorize_credits" BOOLEAN,
     "first_week_loan" FLOAT,
-    "subsquent_loan" FLOAT
+    "subsequent_loan" FLOAT
 );
