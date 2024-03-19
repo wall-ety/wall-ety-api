@@ -51,7 +51,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  /Account:
+  /accounts:
     get:
       tags:
         - Account
@@ -101,7 +101,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  /Account/{AccountId}:
+  /accounts/{accountsId}:
     get:
       tags:
         - Account
@@ -150,7 +150,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  /Transaction:
+  /transactions:
     get:
       tags:
         - Transaction
@@ -178,6 +178,13 @@ paths:
         - Transaction
       summary: create or update Transaction
       operationId: CreateOrUpdateTransaction
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/CreateTransaction'
       responses:
         '200':
           description: Successful response
@@ -195,7 +202,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  /transfert:
+  /transferts:
     get:
       tags:
         - Transfert
@@ -223,6 +230,13 @@ paths:
         - Transfert
       summary: create or update Transfert
       operationId: CreateOrUpdateTransfert
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/CreateTransfert'
       responses:
         '200':
           description: Successful response
@@ -240,7 +254,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  /bank:
+  /banks:
     get:
       tags:
         - bank
@@ -263,7 +277,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  /balance_history:
+  /balances:
     get:
       tags:
         - balance
@@ -286,6 +300,56 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
+  /categories:
+    get:
+      tags:
+        - Categorie
+      summary: Get Own Categorie
+      operationId: getOwnCategorie
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    put:
+      tags:
+        - Categorie
+      summary: Create or Update Categorie
+      operationId: crupdateCategorie
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCategorie'
+      responses:
+        '200':
+          description: The account that was crupdated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Categorie'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
 components:
   parameters:
     AccountIdParam:
@@ -296,6 +360,26 @@ components:
       schema:
         type: string
   schemas:
+    CreateCategorie:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        type:
+          type: string
+        created_at:
+          type: string
+          example: 22-08-23
+        updated_at:
+          type: string
+          example: 22-08-23
+    Categorie:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/CreateCategorie"
     CreateBalance:
       type: object
       properties:
