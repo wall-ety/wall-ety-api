@@ -1,8 +1,8 @@
 openapi: 3.0.3
 info:
   version: 1.0.0
-  title: wallety-api
-  description: Api that can manage your money
+  title: wall-ety
+  description: Manage your money
 paths:
   /ping:
     get:
@@ -51,8 +51,438 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
+  /accounts:
+    get:
+      tags:
+        - Account
+      summary: Get Own Account
+      operationId: getOwnAccount
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    put:
+      tags:
+        - Account
+      summary: Create or Update Account
+      operationId: crupdateAccount
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAccount'
+      responses:
+        '200':
+          description: The account that was crupdated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /accounts/{accountsId}:
+    get:
+      tags:
+        - Account
+      summary: Get one Account using id
+      operationId: getAccountById
+      parameters:
+        - $ref: "#/components/parameters/AccountIdParam"
+      responses:
+        '200':
+          description: One account which has the specified id.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    delete:
+      tags:
+        - Account
+      summary: Delete one account using id
+      operationId: deleteAccountById
+      parameters:
+        - $ref: "#/components/parameters/AccountIdParam"
+      responses:
+        '200':
+          description: One account which has been deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /transactions:
+    get:
+      tags:
+        - Transaction
+      summary: Get Own Transaction
+      operationId: getOwnTransaction
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    put:
+      tags:
+        - Transaction
+      summary: create or update Transaction
+      operationId: CreateOrUpdateTransaction
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/CreateTransaction'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateTransaction'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /transferts:
+    get:
+      tags:
+        - Transfert
+      summary: Get Own Transfert
+      operationId: getOwnTransfert
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transfert'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    put:
+      tags:
+        - Transfert
+      summary: create or update Transfert
+      operationId: CreateOrUpdateTransfert
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/CreateTransfert'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateTransfert'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /banks:
+    get:
+      tags:
+        - bank
+      summary: Get Own Bank
+      operationId: getOwnBank
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bank'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /balances:
+    get:
+      tags:
+        - balance
+      summary: Get Own Balance
+      operationId: getOwnBalance
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Balance'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /categories:
+    get:
+      tags:
+        - Categorie
+      summary: Get Own Categorie
+      operationId: getOwnCategorie
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    put:
+      tags:
+        - Categorie
+      summary: Create or Update Categorie
+      operationId: crupdateCategorie
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCategorie'
+      responses:
+        '200':
+          description: The account that was crupdated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Categorie'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
 components:
+  parameters:
+    AccountIdParam:
+      in: path
+      name: AccountId
+      description: Id the account
+      required: true
+      schema:
+        type: string
   schemas:
+    CreateCategorie:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        type:
+          type: string
+        created_at:
+          type: string
+          example: 22-08-23
+        updated_at:
+          type: string
+          example: 22-08-23
+    Categorie:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/CreateCategorie"
+    CreateBalance:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        amount:
+          type: number
+        created_at:
+          type: string
+          example: 19-03-20
+    Balance:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/CreateBalance"
+    CreateBank:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          example: BMOI
+        updated_at:
+          type: string
+        created_at:
+          type: string
+        authorize_credit:
+          type: boolean
+        first_week_loan:
+          type: number
+        subsequent_loan:
+          type: number
+    Bank:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/CreateBank"
+    CreateTransfert:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        created_date:
+          type: string
+          example: 10-03-24
+        effective_date:
+          type: string
+          example: 10-03-24
+        reason:
+          type: string
+        status:
+          type: string
+        label:
+          type: string
+    Transfert:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/CreateTransfert"
+    CreateTransaction:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        type:
+          type: string
+          enum:
+            - debit
+            - credit
+        reason:
+          type: string
+        amount:
+          type: number
+        transaction_datetime:
+          type: string
+        label:
+          type: string
+    Transaction:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/CreateTransaction"
+    CreateAccount:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        ref:
+          type: string
+        created_at:
+          type: string
+          example: 15-03-24
+        update_at:
+          type: string
+          example: 15-03-24
+        authorize_credit:
+          type: string
+    Account:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/CreateAccount"
     Dummy:
       type: object
       properties:
@@ -61,6 +491,7 @@ components:
           format: uuid
         name:
           type: string
+
   responses:
     BadRequest:
       description: Bad Request
