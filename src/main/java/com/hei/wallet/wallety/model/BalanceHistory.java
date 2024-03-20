@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.Instant;
-import java.util.Objects;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -33,61 +32,4 @@ public class BalanceHistory implements Serializable {
     @Relation
     private Account account;
 
-    public BalanceHistory() {
-    }
-    public BalanceHistory(String id,
-                          BigDecimal amount,
-                          Instant createdAt,
-                          Account account
-    ) {
-        this.id = id;
-        this.amount = amount;
-        this.createdAt = createdAt;
-        this.account = account;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public BigDecimal getAmount() {
-        return amount;
-    }
-
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
-    }
-
-    public Instant getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Instant createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Account getAccount() {
-        return account;
-    }
-
-    public void setAccount(Account account) {
-        this.account = account;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        BalanceHistory balance = (BalanceHistory) o;
-        return Objects.equals(id, balance.id) && Objects.equals(amount, balance.amount) && Objects.equals(createdAt, balance.createdAt) && Objects.equals(account, balance.account);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, amount, createdAt, account);
-    }
 }
