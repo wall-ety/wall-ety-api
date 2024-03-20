@@ -30,6 +30,7 @@ public class Account implements Serializable {
 
     @Column(columnName = "authorize_credits")
     private Boolean authorizeCredits;
+
     @Column(columnName = "created_at")
     private Instant createdAt;
 
