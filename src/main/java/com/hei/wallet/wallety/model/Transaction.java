@@ -8,7 +8,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.w3c.dom.Text;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -37,7 +36,7 @@ public class Transaction implements Serializable {
     private String label;
 
     @Column
-    private Text reason;
+    private String reason;
 
     @Column
     @Relation

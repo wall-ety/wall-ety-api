@@ -7,7 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.w3c.dom.Text;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -29,10 +28,10 @@ public class Transfer implements Serializable {
     private Instant effectiveDate;
 
     @Column
-    private Text reason;
+    private String reason;
 
     @Column
-    private String status;
+    private TransferStatus status;
 
     @Column
     private  String label;
