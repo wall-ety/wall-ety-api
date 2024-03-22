@@ -55,7 +55,7 @@ public class FJPARepository <T> extends ReflectModel<T>{
         }else{
             query = QueryTemplate.getUpdateQuery(
                     this.getTableName(),
-                    this.joinAttributesNamesWithoutId(" = ? , "),
+                    this.joinAttributesNamesWithoutId(" = ? , ") + " = ?",
                     this.getIdAttribute().getColumnName() + " = ?"
             );
         }
@@ -74,7 +74,6 @@ public class FJPARepository <T> extends ReflectModel<T>{
                     .collect(Collectors.toList());
             values.add(getAttributeValue(toSave, getIdAttribute()));
         }
-
         ResultSet resultSet = statementWrapper.update(query, values);
         if(!resultSet.next())
             return null;

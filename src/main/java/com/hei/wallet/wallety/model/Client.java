@@ -3,15 +3,12 @@ package com.hei.wallet.wallety.model;
 import com.hei.wallet.wallety.fjpa.annotation.Column;
 import com.hei.wallet.wallety.fjpa.annotation.Entity;
 import com.hei.wallet.wallety.fjpa.annotation.Id;
-import com.hei.wallet.wallety.fjpa.annotation.Relation;
 import lombok.*;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.time.Instant;
-import java.util.List;
-
 
 @Data
 @Builder
@@ -30,7 +27,7 @@ public class Client implements Serializable {
     private String firstName;
 
     @Column
-    private Date birthday;
+    private Date birthdate;
 
     @Column(columnName = "month_salary")
     private BigDecimal monthSalary;
@@ -40,8 +37,4 @@ public class Client implements Serializable {
 
     @Column(columnName = "updated_at")
     private Instant updatedAt;
-
-    @Relation
-    private List<Account> accounts;
-
 }
