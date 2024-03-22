@@ -1,5 +1,6 @@
 package com.hei.wallet.wallety.repository;
 
+import com.hei.wallet.wallety.fjpa.Attribute;
 import com.hei.wallet.wallety.fjpa.FJPARepository;
 import com.hei.wallet.wallety.fjpa.StatementWrapper;
 import com.hei.wallet.wallety.model.Bank;

@@ -1,8 +1,8 @@
 package com.hei.wallet.wallety.service;
 
 import com.hei.wallet.wallety.exception.InternalServerErrorException;
-import com.hei.wallet.wallety.model.Client;
-import com.hei.wallet.wallety.repository.ClientRepository;
+import com.hei.wallet.wallety.model.Bank;
+import com.hei.wallet.wallety.repository.BankRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -11,39 +11,39 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class ClientService {
-    private final ClientRepository clientRepository;
+public class BankService {
+    private final BankRepository bankRepository;
 
-    public Client saveOrUpdate(Client toSave){
+    public Bank saveOrUpdate(Bank toSave){
         try{
-            return clientRepository.saveOrUpdate(toSave);
+            return bankRepository.saveOrUpdate(toSave);
         }catch(SQLException e){
             System.out.println(e.getMessage());
             throw new InternalServerErrorException();
         }
     }
 
-    public Client findById(String id){
+    public Bank findById(String id){
         try{
-            return clientRepository.findById(id);
+            return bankRepository.findById(id);
         }catch(SQLException e){
             System.out.println(e.getMessage());
             throw new InternalServerErrorException();
         }
     }
 
-    public List<Client> findAll(){
+    public List<Bank> findAll(){
         try {
-            return clientRepository.findAll();
+            return bankRepository.findAll();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             throw new InternalServerErrorException();
         }
     }
 
-    public List<Client> saveOrUpdateAll(List<Client> clients){
+    public List<Bank> saveOrUpdateAll(List<Bank> banks){
         try {
-        return clientRepository.saveOrUpdateAll(clients);
+            return bankRepository.saveOrUpdateAll(banks);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             throw new InternalServerErrorException();
