@@ -40,8 +40,4 @@ public class Bank implements Serializable {
 
     @Column(columnName = "subsequent_loan")
     private Float subsequentLoan;
-
-    @Relation
-    private List<Account> accounts;
-
 }
