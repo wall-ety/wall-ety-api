@@ -2,6 +2,7 @@ package com.hei.wallet.wallety.model;
 
 import com.hei.wallet.wallety.fjpa.annotation.Column;
 import com.hei.wallet.wallety.fjpa.annotation.Entity;
+import com.hei.wallet.wallety.fjpa.annotation.Id;
 import com.hei.wallet.wallety.fjpa.annotation.Relation;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,8 +17,12 @@ import java.time.Instant;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Entity(tableName = "Transfer")
+@Entity(tableName = "transfer")
 public class Transfer implements Serializable {
+    @Id
+    @Column
+    private String id;
+
     @Column
     private BigDecimal amount;
 

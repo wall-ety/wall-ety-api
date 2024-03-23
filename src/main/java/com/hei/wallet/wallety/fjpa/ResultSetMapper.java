@@ -12,7 +12,7 @@ public class ResultSetMapper<T>{
     private final ReflectEntity<T> reflectEntity;
 
     public Object retrieveResultSetValue(ResultSet resultSet, ReflectAttribute attribute) throws SQLException {
-        switch (attribute.getClazz().getTypeName()) {
+        switch (attribute.getClazz().getSimpleName()) {
             case "Instant":
                 return resultSet.getTimestamp(attribute.getColumnName()).toInstant();
             case "BigDecimal":
@@ -38,7 +38,7 @@ public class ResultSetMapper<T>{
             } catch (SQLException error) {
                 throw new RuntimeException(error.getMessage());
             }
-        }
+        };
 
         return reflectEntity.createInstance(values);
     }

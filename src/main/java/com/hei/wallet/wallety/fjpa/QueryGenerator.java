@@ -7,20 +7,21 @@ public class QueryGenerator<T> {
     private final ReflectEntity<T> reflectEntity;
 
     public String configure(String query){
-        query = query.replaceAll("@entity.", "@");
-        for(ReflectAttribute attribute: reflectEntity.getAttributes()){
-            if(!query.contains("@")){
+        query = query
+                    .replace("@entity.", "@")
+                    .replace("@entity", reflectEntity.getTableName())
+                    .replace("@id", reflectEntity.getIdAttribute().getColumnName());
+
+        for(ReflectAttribute attribute: reflectEntity.getAttributes()) {
+            if (!query.contains("@")) {
                 break;
             }
-
-            query = query.replaceAll(
-                String.format("@%s", attribute.getFieldName()),
-                attribute.getColumnName()
+            query = query.replace(
+                    String.format("@%s", attribute.getFieldName()),
+                    attribute.getColumnName()
             );
         }
 
-        return query
-                .replaceAll("@entity", reflectEntity.getTableName())
-                .replaceAll("@id", reflectEntity.getIdAttribute().getColumnName());
+        return query;
     }
 }

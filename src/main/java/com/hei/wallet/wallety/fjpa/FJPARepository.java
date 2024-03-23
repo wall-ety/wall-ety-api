@@ -12,11 +12,11 @@ import java.util.stream.Collectors;
 
 @Getter
 public class FJPARepository <T>{
-    private final ReflectEntity<T> reflectEntity;
-    private final QueryGenerator<T> queryGenerator;
-    private final StatementWrapper statementWrapper;
-    private final ResultSetMapper<T> resultSetMapper;
-    private final String SELECT_ALL_QUERY;
+    protected final ReflectEntity<T> reflectEntity;
+    protected final QueryGenerator<T> queryGenerator;
+    protected final ResultSetMapper<T> resultSetMapper;
+    protected final StatementWrapper statementWrapper;
+    protected final String SELECT_ALL_QUERY;
 
     @SuppressWarnings("unchecked")
     public FJPARepository(Connection connection) {
@@ -39,7 +39,7 @@ public class FJPARepository <T>{
 
     public List<T> findAll(String suffix, List<Object> values) throws SQLException {
         String query = queryGenerator.configure(String.format("%s %s ;", SELECT_ALL_QUERY, suffix));
-        return statementWrapper.select(query, values, this.resultSetMapper::mapResultSetToInstance);
+        return statementWrapper.select(query,values, this.resultSetMapper::mapResultSetToInstance);
     }
 
     public List<T> findByField(String fieldName, Object fieldValue) throws SQLException {
@@ -54,7 +54,12 @@ public class FJPARepository <T>{
         String query = queryGenerator.configure(
             String.format("%s WHERE %s = ? %s", SELECT_ALL_QUERY , fieldName, suffix)
         );
-        return statementWrapper.select(query,List.of(fieldValue), resultSet -> this.resultSetMapper.mapResultSetToInstance(resultSet, excludes));
+
+        return statementWrapper.select(
+            query,
+            List.of(fieldValue),
+            resultSet -> this.resultSetMapper.mapResultSetToInstance(resultSet, excludes)
+        );
     }
 
     public T findById(Object id) throws SQLException {
@@ -108,7 +113,7 @@ public class FJPARepository <T>{
 
         if(!resultSet.next())
             return null;
-        return resultSetMapper.mapResultSetToInstance(resultSet);
+        return this.resultSetMapper.mapResultSetToInstance(resultSet);
     }
 
     public List<T> saveOrUpdateAll(List<T> toSaves) throws SQLException {
