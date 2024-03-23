@@ -4,12 +4,17 @@ import com.hei.wallet.wallety.model.Bank;
 import com.hei.wallet.wallety.model.Client;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.time.Instant;
 
 @Builder
 @AllArgsConstructor
-public class Account {
+@NoArgsConstructor
+@Data
+public class Account implements Serializable {
     private String id;
     private String ref;
     private String name;

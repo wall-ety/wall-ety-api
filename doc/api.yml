@@ -2,7 +2,6 @@ openapi: 3.0.3
 info:
   version: 1.0.0
   title: wallety-api
-  description: Manage your money
 paths:
   /ping:
     get:
@@ -24,8 +23,6 @@ paths:
           $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/NotFound'
-        '429':
-          $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
   /dummy-table:
@@ -47,8 +44,6 @@ paths:
           $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/NotFound'
-        '429':
-          $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
   /categories:
@@ -72,8 +67,6 @@ paths:
           $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/NotFound'
-        '429':
-          $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
     put:
@@ -103,8 +96,44 @@ paths:
           $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/NotFound'
-        '429':
-          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /categories/{idCategory}:
+    put:
+      tags:
+        - Categories
+      summary: Create or Update list of Categories
+      parameters:
+        - in: path
+          name: idCategory
+          description: If tf category to retrieve
+          required: true
+          schema:
+            type: string
+            format: uuid
+      operationId: crupdateCategories
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Category'
+      responses:
+        '200':
+          description: The category that was crupdated
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Category'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
         '500':
           $ref: '#/components/responses/InternalServerError'
   /clients:
@@ -128,8 +157,6 @@ paths:
           $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/NotFound'
-        '429':
-          $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
     put:
@@ -159,11 +186,9 @@ paths:
           $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/NotFound'
-        '429':
-          $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  /clients/{clientId}:
+  /clients/{idClient}:
     get:
       tags:
         - Clients
@@ -184,32 +209,6 @@ paths:
           $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/NotFound'
-        '429':
-          $ref: '#/components/responses/TooManyRequests'
-        '500':
-          $ref: '#/components/responses/InternalServerError'
-    delete:
-      tags:
-        - Clients
-      summary: Delete one clients using id
-      operationId: deleteClientById
-      parameters:
-        - $ref: "#/components/parameters/ClientIdParam"
-      responses:
-        '200':
-          description: One client which has been deleted
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Client'
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        '404':
-          $ref: '#/components/responses/NotFound'
-        '429':
-          $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
   /accounts:
@@ -233,8 +232,6 @@ paths:
           $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/NotFound'
-        '429':
-          $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
     put:
@@ -264,8 +261,6 @@ paths:
           $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/NotFound'
-        '429':
-          $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
   /accounts/{accountId}:
@@ -289,32 +284,6 @@ paths:
           $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/NotFound'
-        '429':
-          $ref: '#/components/responses/TooManyRequests'
-        '500':
-          $ref: '#/components/responses/InternalServerError'
-    delete:
-      tags:
-        - Accounts
-      summary: Delete one account using id
-      operationId: deleteAccountById
-      parameters:
-        - $ref: "#/components/parameters/AccountIdParam"
-      responses:
-        '200':
-          description: One account which has been deleted
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Account'
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        '404':
-          $ref: '#/components/responses/NotFound'
-        '429':
-          $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
   /accounts/{accountId}/transactions:
@@ -340,8 +309,6 @@ paths:
           $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/NotFound'
-        '429':
-          $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
   /transactions:
@@ -372,8 +339,6 @@ paths:
           $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/NotFound'
-        '429':
-          $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
   /accounts/{accountId}/transfers:
@@ -399,8 +364,6 @@ paths:
           $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/NotFound'
-        '429':
-          $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
   /transfers:
@@ -431,8 +394,6 @@ paths:
           $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/NotFound'
-        '429':
-          $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
   /banks:
@@ -456,8 +417,6 @@ paths:
           $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/NotFound'
-        '429':
-          $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
     put:
@@ -480,15 +439,34 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Transfer'
+                  $ref: '#/components/schemas/Bank'
         '400':
           $ref: '#/components/responses/BadRequest'
         '403':
           $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/NotFound'
-        '429':
-          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /banks/{idBank}:
+    get:
+      tags:
+        - Banks
+      summary: Get one Bank by id
+      operationId: getBanksById
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bank'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
         '500':
           $ref: '#/components/responses/InternalServerError'
   /accounts/{accountId}/balances:
@@ -514,15 +492,13 @@ paths:
           $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/NotFound'
-        '429':
-          $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
 components:
   parameters:
     ClientIdParam:
       in: path
-      name: clientId
+      name: idClient
       description: id of the client
       required: true
       schema:
@@ -630,11 +606,9 @@ components:
           type: string
         createdAt:
           type: string
-          example: 15-03-24
         updateAt:
           type: string
-          example: 15-03-24
-        authorizeCredits:
+        authorizecredits:
           type: string
     CreateAccount:
       type: object
@@ -744,33 +718,50 @@ components:
           type: string
 
   responses:
+    ApiErrorResponse:
+      description: Api Error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              code:
+                type: number
     BadRequest:
       description: Bad Request
       content:
         application/json:
+          schema:
+            $ref: "#/components/responses/ApiErrorResponse"
           example:
-            error: "Invalid request parameters"
+            message: "Bad Request"
+            code: 400
     Forbidden:
       description: Forbidden
       content:
         application/json:
+          schema:
+            $ref: "#/components/responses/ApiErrorResponse"
           example:
-            error: "Access forbidden"
+            message: "Forbidden"
+            code: 403
     NotFound:
       description: Not Found
       content:
         application/json:
+          schema:
+            $ref: "#/components/responses/ApiErrorResponse"
           example:
-            error: "Resource not found"
-    TooManyRequests:
-      description: Too Many Requests
-      content:
-        application/json:
-          example:
-            error: "Too many requests, please try again later"
+            message: "Not Found"
+            code: 404
     InternalServerError:
       description: Internal Server Error
       content:
         application/json:
+          schema:
+            $ref: "#/components/responses/ApiErrorResponse"
           example:
-            error: "Internal server error occurred"
+            message: "Internal Server Error"
+            code: 500

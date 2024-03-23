@@ -16,16 +16,22 @@ import java.util.List;
 public class AccountService {
     private final AccountRepository accountRepository;
 
+    public static void verifyUpdatingAuthorizeCredits(Account toVerify){
+        // Authorize updating authorize_credits only if bank allow it
+        if(!toVerify.getBank().getAuthorizeCredits()){
+            throw new AccessDeniedException("Credits is not authorize for your bank");
+        }
+    }
+
     public Account saveOrUpdate(Account toSave){
         try{
             Account accountBeforeUpdate = accountRepository.findById(toSave.getId());
 
-            // Authorize updating authorize_credits only if bank allow it
-            if(toSave.getAuthorizeCredits() && !accountBeforeUpdate.getBank().getAuthorizeCredits()){
-                throw new AccessDeniedException("Credits is not authorize for your bank");
+            if(toSave.getAuthorizeCredits()){
+                verifyUpdatingAuthorizeCredits(accountBeforeUpdate);
             }
-
-            return accountRepository.saveOrUpdate(toSave);
+            accountRepository.saveOrUpdate(toSave);
+            return findById(toSave.getId());
         }catch(SQLException e){
             System.out.println(e.getMessage());
             throw new InternalServerErrorException();

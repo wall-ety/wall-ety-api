@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS "balence_history"(
+CREATE TABLE IF NOT EXISTS "balance_history"(
     "id" VARCHAR(255) PRIMARY KEY,
     "amount" DECIMAL,
     "created_at" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

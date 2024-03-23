@@ -1,5 +1,6 @@
 package com.hei.wallet.wallety.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.hei.wallet.wallety.fjpa.annotation.Column;
 import com.hei.wallet.wallety.fjpa.annotation.Entity;
 import com.hei.wallet.wallety.fjpa.annotation.Id;
@@ -33,11 +34,15 @@ public class Bank implements Serializable {
     private Instant updatedAt;
 
     @Column(columnName = "authorize_credits")
-    private Boolean authorizeCredits;
+    private boolean authorizeCredits;
 
     @Column(columnName = "first_week_loan")
-    private Float firstWeekLoan;
+    private float firstWeekLoan;
 
     @Column(columnName = "subsequent_loan")
-    private Float subsequentLoan;
+    private float subsequentLoan;
+
+    public boolean getAuthorizeCredits() {
+        return authorizeCredits;
+    }
 }

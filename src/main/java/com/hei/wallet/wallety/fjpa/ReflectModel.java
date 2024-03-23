@@ -73,6 +73,8 @@ public class ReflectModel<T>{
                     value = resultSet.getTimestamp(attribute.getColumnName()).toInstant();
                 }else if(BigDecimal.class.equals(attribute.getFieldType())){
                     value = resultSet.getBigDecimal(attribute.getColumnName());
+                }else if(float.class.equals(attribute.getFieldType())){
+                    value = resultSet.getFloat(attribute.getColumnName());
                 } else if (attribute.getFieldType().isEnum()) {
                     String enumString = resultSet.getString(attribute.getColumnName());
                     value = Enum.valueOf((Class<Enum>) attribute.getFieldType(), enumString);

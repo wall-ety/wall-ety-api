@@ -8,8 +8,6 @@ import com.hei.wallet.wallety.service.ClientService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.time.Instant;
-
 @Component
 @RequiredArgsConstructor
 public class AccountMapper {
@@ -28,7 +26,7 @@ public class AccountMapper {
             .createdAt(account.getCreatedAt())
             .updatedAt(account.getUpdatedAt())
             .authorizeCredits(account.getAuthorizeCredits())
-            .balance(balanceMapper.toApi(account.getBalance()))
+            .balance(account.getBalance() == null ? null : balanceMapper.toApi(account.getBalance()))
             .client(account.getClient())
             .bank(account.getBank())
             .build();
@@ -39,8 +37,8 @@ public class AccountMapper {
             .id(createAccount.getId())
             .ref(createAccount.getId())
             .name(createAccount.getName())
-            .createdAt(Instant.now())
-            .updatedAt(Instant.now())
+            .createdAt(createAccount.getCreatedAt())
+            .updatedAt(createAccount.getUpdatedAt())
             .authorizeCredits(createAccount.isAuthorizeCredits())
             .balance(balanceHistoryService.getCurrentAccountBalance(createAccount.getId()))
             .client(clientService.findById(createAccount.getIdClient()))

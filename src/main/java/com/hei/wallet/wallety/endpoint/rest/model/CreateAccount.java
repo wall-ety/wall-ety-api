@@ -1,19 +1,18 @@
 package com.hei.wallet.wallety.endpoint.rest.model;
 
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
+import java.io.Serializable;
 import java.time.Instant;
 
-@Getter
-@Setter
 @NoArgsConstructor
-public class CreateAccount {
+@Data
+public class CreateAccount implements Serializable {
     private String id;
     private String name;
     private Instant createdAt;
-    private Instant updateAt;
+    private Instant updatedAt;
     private boolean authorizeCredits;
     private String idClient;
     private String idBank;
