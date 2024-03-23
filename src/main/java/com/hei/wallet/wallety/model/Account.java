@@ -45,4 +45,6 @@ public class Account implements Serializable {
     @Relation
     private Bank bank;
 
+    @Relation
+    private BalanceHistory balance;
 }

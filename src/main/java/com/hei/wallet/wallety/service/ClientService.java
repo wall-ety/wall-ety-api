@@ -1,6 +1,7 @@
 package com.hei.wallet.wallety.service;
 
 import com.hei.wallet.wallety.exception.InternalServerErrorException;
+import com.hei.wallet.wallety.exception.NotFoundException;
 import com.hei.wallet.wallety.model.Client;
 import com.hei.wallet.wallety.repository.ClientRepository;
 import lombok.AllArgsConstructor;
@@ -25,7 +26,11 @@ public class ClientService {
 
     public Client findById(String id){
         try{
-            return clientRepository.findById(id);
+            Client category =  clientRepository.findById(id);
+            if(category == null){
+                throw new NotFoundException(String.format("Client with id=%s doesn't exist", id));
+            }
+            return category;
         }catch(SQLException e){
             System.out.println(e.getMessage());
             throw new InternalServerErrorException();

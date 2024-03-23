@@ -620,7 +620,7 @@ components:
           type: number
         subsequentLoan:
           type: number
-    CreateAccount:
+    AccountBase:
       type: object
       properties:
         id:
@@ -636,10 +636,21 @@ components:
           example: 15-03-24
         authorizeCredits:
           type: string
+    CreateAccount:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/AccountBase"
+      properties:
+        idClient:
+          type: string
+          format: uuid
+        idBank:
+          type: string
+          format: uuid
     Account:
       type: object
       allOf:
-        - $ref: "#/components/schemas/CreateAccount"
+        - $ref: "#/components/schemas/AccountBase"
       properties:
         ref:
           type: string

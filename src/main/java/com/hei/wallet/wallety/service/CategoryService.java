@@ -1,6 +1,7 @@
 package com.hei.wallet.wallety.service;
 
 import com.hei.wallet.wallety.exception.InternalServerErrorException;
+import com.hei.wallet.wallety.exception.NotFoundException;
 import com.hei.wallet.wallety.model.Category;
 import com.hei.wallet.wallety.repository.CategoryRepository;
 import lombok.AllArgsConstructor;
@@ -25,7 +26,11 @@ public class CategoryService {
 
     public Category findById(String id){
         try{
-            return categoryRepository.findById(id);
+            Category category =  categoryRepository.findById(id);
+            if(category == null){
+                throw new NotFoundException(String.format("Category with id=%s doesn't exist", id));
+            }
+            return category;
         }catch(SQLException e){
             System.out.println(e.getMessage());
             throw new InternalServerErrorException();

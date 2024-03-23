@@ -20,6 +20,11 @@ public class FJPARepository <T> extends ReflectModel<T>{
         return statementWrapper.select(selectAllQuery,null, this::mapResultSetToInstance);
     }
 
+    public List<T> findAll(String suffix, List<Object> values) throws SQLException {
+        String query = String.format("%s %s ;", selectAllQuery, suffix);
+        return statementWrapper.select(query, values, this::mapResultSetToInstance);
+    }
+
     public List<T> findByField(String fieldName, Object fieldValue) throws SQLException {
         return findByField(fieldName, fieldValue, List.of());
     }
