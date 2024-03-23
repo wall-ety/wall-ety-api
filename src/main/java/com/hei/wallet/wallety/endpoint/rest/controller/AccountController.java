@@ -32,7 +32,7 @@ public class AccountController {
     @PutMapping("/accounts")
     public List<Account> createAccount(@RequestBody List<CreateAccount> accounts){
         return accountService.saveOrUpdateAll(
-            accounts.stream().map(accountMapper::toDomain).toList()
+            accounts.stream().map(accountMapper::createToDomain).toList()
         ).stream().map(accountMapper::toApi).toList();
     }
 }

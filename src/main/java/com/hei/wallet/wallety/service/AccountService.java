@@ -1,5 +1,6 @@
 package com.hei.wallet.wallety.service;
 
+import com.hei.wallet.wallety.exception.AccessDeniedException;
 import com.hei.wallet.wallety.exception.InternalServerErrorException;
 import com.hei.wallet.wallety.exception.NotFoundException;
 import com.hei.wallet.wallety.model.Account;
@@ -17,6 +18,13 @@ public class AccountService {
 
     public Account saveOrUpdate(Account toSave){
         try{
+            Account accountBeforeUpdate = accountRepository.findById(toSave.getId());
+
+            // Authorize updating authorize_credits only if bank allow it
+            if(toSave.getAuthorizeCredits() && !accountBeforeUpdate.getBank().getAuthorizeCredits()){
+                throw new AccessDeniedException("Credits is not authorize for your bank");
+            }
+
             return accountRepository.saveOrUpdate(toSave);
         }catch(SQLException e){
             System.out.println(e.getMessage());

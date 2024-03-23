@@ -25,15 +25,15 @@ public class AccountMapper {
             .id(account.getId())
             .ref(account.getId())
             .name(account.getName())
-            .createdAt(Instant.now())
-            .updatedAt(Instant.now())
+            .createdAt(account.getCreatedAt())
+            .updatedAt(account.getUpdatedAt())
             .authorizeCredits(account.getAuthorizeCredits())
             .balance(balanceMapper.toApi(account.getBalance()))
             .client(account.getClient())
             .bank(account.getBank())
             .build();
     }
-    public com.hei.wallet.wallety.model.Account toDomain(CreateAccount createAccount){
+    public com.hei.wallet.wallety.model.Account createToDomain(CreateAccount createAccount){
         return com.hei.wallet.wallety.model.Account
             .builder()
             .id(createAccount.getId())

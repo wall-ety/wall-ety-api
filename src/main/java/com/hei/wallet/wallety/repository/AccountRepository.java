@@ -37,6 +37,7 @@ public class AccountRepository extends FJPARepository<Account> {
             account.setClient(
                 clientRepository.findById(resultSet.getString("client"))
             );
+
             account.setBank(
                 bankRepository.findById(resultSet.getString("bank"))
             );
