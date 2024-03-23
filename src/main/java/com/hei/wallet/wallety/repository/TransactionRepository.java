@@ -18,6 +18,11 @@ public class TransactionRepository extends FJPARepository<Transaction> {
     }
 
     @Override
+    public List<Transaction> findByField(String fieldName, Object fieldValue, List<Class<?>> excludes) throws SQLException {
+        return super.findByField(fieldName, fieldValue, excludes, " ORDER BY \"transaction_datetime\" DESC ");
+    }
+
+    @Override
     protected Object getAttributeValue(Transaction transaction, Attribute attribute) {
         return switch (attribute.getFieldName()){
             case "category" -> transaction.getCategory().getId();

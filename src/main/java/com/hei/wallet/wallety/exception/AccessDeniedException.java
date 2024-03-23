@@ -4,7 +4,7 @@ import org.springframework.http.HttpStatus;
 
 public class AccessDeniedException extends ApiException{
     public AccessDeniedException(String message) {
-        super(message, HttpStatus.INTERNAL_SERVER_ERROR);
+        super(message, HttpStatus.FORBIDDEN);
     }
 
     public AccessDeniedException(){

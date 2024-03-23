@@ -29,8 +29,12 @@ public class FJPARepository <T> extends ReflectModel<T>{
         return findByField(fieldName, fieldValue, List.of());
     }
 
+
     public List<T> findByField(String fieldName, Object fieldValue, List<Class<?>> excludes) throws SQLException {
-        String query = QueryTemplate.getSelectWithConditionQuery(this.getTableName(), fieldName + " = ? ;");
+        return findByField(fieldName, fieldValue, excludes, "");
+    }
+    protected List<T> findByField(String fieldName, Object fieldValue, List<Class<?>> excludes, String suffix) throws SQLException {
+        String query = QueryTemplate.getSelectWithConditionQuery(this.getTableName(), fieldName + " = ? " + suffix + " ;");
         return statementWrapper.select(query,List.of(fieldValue), resultSet -> this.mapResultSetToInstance(resultSet, excludes));
     }
 

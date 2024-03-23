@@ -7,9 +7,7 @@ import com.hei.wallet.wallety.repository.BalanceHistoryRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.sql.SQLException;
-import java.time.Instant;
 import java.util.List;
 
 @Service
@@ -17,7 +15,6 @@ import java.util.List;
 public class BalanceHistoryService {
     private final BalanceHistoryRepository balanceHistoryRepository;
 
-    private final static String DEFAULT_ID="DEFAULT_ID";
     public BalanceHistory saveOrUpdate(BalanceHistory toSave){
         try{
             return balanceHistoryRepository.saveOrUpdate(toSave);
@@ -69,11 +66,7 @@ public class BalanceHistoryService {
 
     public BalanceHistory getCurrentAccountBalance(String accountId){
         try{
-            BalanceHistory balance = balanceHistoryRepository.getAccountCurrentBalance(accountId);
-            if(balance == null){
-                return new BalanceHistory(DEFAULT_ID, BigDecimal.ZERO, Instant.now(), null);
-            }
-            return balance;
+            return balanceHistoryRepository.getAccountCurrentBalance(accountId);
         }catch (SQLException error){
             System.out.println(error.getMessage());
             throw new InternalServerErrorException();

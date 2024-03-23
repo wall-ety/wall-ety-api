@@ -286,116 +286,6 @@ paths:
           $ref: '#/components/responses/NotFound'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  /accounts/{accountId}/transactions:
-    get:
-      tags:
-        - Transactions
-      summary: Get all Transactions by account id
-      operationId: getTransactionsByAccountId
-      parameters:
-        - $ref: "#/components/parameters/AccountIdParam"
-      responses:
-        '200':
-          description: Successful response
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Transaction'
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        '404':
-          $ref: '#/components/responses/NotFound'
-        '500':
-          $ref: '#/components/responses/InternalServerError'
-  /transactions:
-    put:
-      tags:
-        - Transactions
-      summary: create or update list of Transaction
-      operationId: crupdateTransactions
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: array
-              items:
-                $ref: '#/components/schemas/CreateTransaction'
-      responses:
-        '200':
-          description: Successful response
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/CreateTransaction'
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        '404':
-          $ref: '#/components/responses/NotFound'
-        '500':
-          $ref: '#/components/responses/InternalServerError'
-  /accounts/{accountId}/transfers:
-    get:
-      tags:
-        - Transfers
-      summary: Get account's Transfer
-      operationId: getTransfersByAccountId
-      parameters:
-        - $ref: "#/components/parameters/AccountIdParam"
-      responses:
-        '200':
-          description: Successful response
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Transfer'
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        '404':
-          $ref: '#/components/responses/NotFound'
-        '500':
-          $ref: '#/components/responses/InternalServerError'
-  /transfers:
-    put:
-      tags:
-        - Transfers
-      summary: create or update list of Transfers
-      operationId: crupdateTransfers
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: array
-              items:
-                $ref: '#/components/schemas/CreateTransfer'
-      responses:
-        '200':
-          description: Successful response
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Transfer'
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        '404':
-          $ref: '#/components/responses/NotFound'
-        '500':
-          $ref: '#/components/responses/InternalServerError'
   /banks:
     get:
       tags:
@@ -469,6 +359,29 @@ paths:
           $ref: '#/components/responses/NotFound'
         '500':
           $ref: '#/components/responses/InternalServerError'
+  /accounts/{accountId}/balances/current:
+    get:
+      tags:
+        - Balances
+      summary: Get Current Balance for an Account
+      operationId: getCurrentBalance
+      parameters:
+        - $ref: "#/components/parameters/AccountIdParam"
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Balance'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
   /accounts/{accountId}/balances:
     get:
       tags:
@@ -486,6 +399,116 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Balance'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /accounts/{accountId}/transactions:
+    get:
+      tags:
+        - Transactions
+      summary: Get all Transactions by account id
+      operationId: getTransactionsByAccountId
+      parameters:
+        - $ref: "#/components/parameters/AccountIdParam"
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Transaction'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /transactions:
+    post:
+      tags:
+        - Transactions
+      summary: create list of Transaction
+      operationId: createTransactions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/CreateTransaction'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CreateTransaction'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /accounts/{accountId}/transfers:
+    get:
+      tags:
+        - Transfers
+      summary: Get account's Transfer
+      operationId: getTransfersByAccountId
+      parameters:
+        - $ref: "#/components/parameters/AccountIdParam"
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Transfer'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /transfers:
+    put:
+      tags:
+        - Transfers
+      summary: create or update list of Transfers
+      operationId: crupdateTransfers
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/CreateTransfer'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Transfer'
         '400':
           $ref: '#/components/responses/BadRequest'
         '403':
@@ -608,7 +631,14 @@ components:
           type: string
         updateAt:
           type: string
-        authorizecredits:
+        authorizeCredits:
+          type: string
+    CompleteAccount:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/AccountBase"
+      properties:
+        ref:
           type: string
     CreateAccount:
       type: object
@@ -624,10 +654,8 @@ components:
     Account:
       type: object
       allOf:
-        - $ref: "#/components/schemas/AccountBase"
+        - $ref: "#/components/schemas/CompleteAccount"
       properties:
-        ref:
-          type: string
         bank:
           $ref: "#/components/schemas/Bank"
         balance:
@@ -685,7 +713,7 @@ components:
       enum:
         - DEBIT
         - CREDIT
-    CreateTransaction:
+    TransactionBase:
       type: object
       properties:
         id:
@@ -701,10 +729,17 @@ components:
           type: string
         label:
           type: string
+    CreateTransaction:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/TransactionBase"
+      properties:
+        idAccount:
+          type: string
     Transaction:
       type: object
       allOf:
-        - $ref: "#/components/schemas/CreateTransaction"
+        - $ref: "#/components/schemas/TransactionBase"
       properties:
         account:
           $ref: "#/components/schemas/Account"
@@ -716,7 +751,6 @@ components:
           format: uuid
         name:
           type: string
-
   responses:
     ApiErrorResponse:
       description: Api Error
