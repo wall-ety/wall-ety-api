@@ -24,7 +24,7 @@ public class TransactionMapper {
             .reason(transaction.getReason())
             .category(transaction.getCategory())
             .transactionDatetime(transaction.getTransactionDatetime())
-            .account(accountMapper.toApi(transaction.getAccount()))
+            .account(accountMapper.toApi(accountService.findById(transaction.getAccount().getId())))
             .build();
     }
 

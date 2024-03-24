@@ -4,6 +4,7 @@ import com.hei.wallet.wallety.exception.BadRequestException;
 import com.hei.wallet.wallety.exception.InternalServerErrorException;
 import com.hei.wallet.wallety.exception.NotFoundException;
 import com.hei.wallet.wallety.model.*;
+import com.hei.wallet.wallety.repository.AccountRepository;
 import com.hei.wallet.wallety.repository.TransactionRepository;
 import com.hei.wallet.wallety.utils.GenUUID;
 import lombok.AllArgsConstructor;
@@ -20,6 +21,7 @@ import java.util.List;
 public class TransactionService {
     private final TransactionRepository transactionRepository;
     private final BalanceHistoryService balanceHistoryService;
+    private final AccountRepository accountRepository;
 
     public Transaction saveOrUpdate(Transaction toSave){
         try{

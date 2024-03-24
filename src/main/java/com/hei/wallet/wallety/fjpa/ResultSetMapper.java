@@ -14,11 +14,13 @@ public class ResultSetMapper<T>{
 
     public Object retrieveResultSetValue(ResultSet resultSet, ReflectAttribute attribute, List<Class<?>> excludes, boolean isUpdate) throws SQLException {
         if(attribute.isRelation()){
-            if(isUpdate)
+            if(isUpdate){
                 return null;
+            }
+
+            ReflectEntity<?> childEntity = new ReflectEntity<>(attribute.getClazz());
             List<Class<?>> newExcludes = new ArrayList<>(excludes);
             newExcludes.add(attribute.getClazz());
-            ReflectEntity<?> childEntity = new ReflectEntity<>(attribute.getClazz());
             ResultSetMapper<?> childResulSetMapper = new ResultSetMapper<>(childEntity);
             return childResulSetMapper.mapResultSetToInstance(resultSet, newExcludes, false);
         }
