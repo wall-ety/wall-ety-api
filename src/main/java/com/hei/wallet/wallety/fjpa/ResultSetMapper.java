@@ -3,6 +3,7 @@ package com.hei.wallet.wallety.fjpa;
 import lombok.AllArgsConstructor;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,30 +12,49 @@ import java.util.Map;
 public class ResultSetMapper<T>{
     private final ReflectEntity<T> reflectEntity;
 
-    public Object retrieveResultSetValue(ResultSet resultSet, ReflectAttribute attribute) throws SQLException {
+    public Object retrieveResultSetValue(ResultSet resultSet, ReflectAttribute attribute, List<Class<?>> excludes, boolean isUpdate) throws SQLException {
+        if(attribute.isRelation()){
+            List<Class<?>> newExcludes = new ArrayList<>(excludes);
+            newExcludes.add(attribute.getClazz());
+            ReflectEntity<?> childEntity = new ReflectEntity<>(attribute.getClazz());
+            ResultSetMapper<?> childResulSetMapper = new ResultSetMapper<>(childEntity);
+            return childResulSetMapper.mapResultSetToInstance(resultSet, newExcludes, false);
+        }
+
+        String columnName = attribute.getOriginalColumnName();
+        if(!isUpdate){
+            columnName = String.format(
+                "%s.%s",
+                reflectEntity.getOriginalTableName(),
+                attribute.getOriginalColumnName()
+            );
+        }
+
         switch (attribute.getClazz().getSimpleName()) {
             case "Instant":
-                return resultSet.getTimestamp(attribute.getColumnName()).toInstant();
+                return resultSet.getTimestamp(columnName).toInstant();
             case "BigDecimal":
-                return resultSet.getBigDecimal(attribute.getColumnName());
+                return resultSet.getBigDecimal(columnName);
             case "float":
-                return resultSet.getFloat(attribute.getColumnName());
+                return resultSet.getFloat(columnName);
             default:
                 if (!attribute.getClazz().isEnum()) {
-                    return resultSet.getObject(attribute.getColumnName());
+                    return resultSet.getObject(columnName);
                 }
-                String enumString = resultSet.getString(attribute.getColumnName());
+                String enumString = resultSet.getString(columnName);
                 return Enum.valueOf((Class<Enum>) attribute.getClazz(), enumString);
         }
     }
 
-    public T mapResultSetToInstance(ResultSet resultSet, List<Class<?>> excludes) {
+    public T mapResultSetToInstance(ResultSet resultSet, List<Class<?>> excludes, boolean isUpdate) {
         Map<ReflectAttribute, Object> values = new HashMap<>();
         for(ReflectAttribute attribute: reflectEntity.getAttributes()){
-            if(attribute.isRelation())
-                continue;
             try {
-                values.put(attribute, retrieveResultSetValue(resultSet, attribute));
+                if(excludes.contains(attribute.getClazz())){
+                    continue;
+                }
+
+                values.put(attribute, retrieveResultSetValue(resultSet, attribute, excludes, isUpdate));
             } catch (SQLException error) {
                 throw new RuntimeException(error.getMessage());
             }
@@ -44,6 +64,10 @@ public class ResultSetMapper<T>{
     }
 
     public T mapResultSetToInstance(ResultSet resultSet) {
-        return mapResultSetToInstance(resultSet, List.of());
+        return mapResultSetToInstance(resultSet, List.of(), false);
+    }
+
+    public T mapResultSetToInstance(ResultSet resultSet, boolean isUpdate) {
+        return mapResultSetToInstance(resultSet, List.of(), isUpdate);
     }
 }

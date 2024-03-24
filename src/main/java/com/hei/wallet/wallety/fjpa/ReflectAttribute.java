@@ -1,9 +1,6 @@
 package com.hei.wallet.wallety.fjpa;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.lang.reflect.Method;
 
@@ -11,13 +8,18 @@ import java.lang.reflect.Method;
 @AllArgsConstructor
 @Builder
 @NoArgsConstructor
+@EqualsAndHashCode
 public class ReflectAttribute {
-    private String columnName;
+    private String sqlColumnName;
+    private String originalColumnName;
+    private String originalTableName;
+    private String sqlTableName;
     private String fieldName;
     private boolean required;
-    private boolean isRelation;
     private boolean isId;
     private Method setter;
     private Method getter;
+    private boolean isRelation;
+    private String refColumnName;
     private Class<?> clazz;
 }

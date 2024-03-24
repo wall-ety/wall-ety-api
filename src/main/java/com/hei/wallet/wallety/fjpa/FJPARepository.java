@@ -24,7 +24,7 @@ public class FJPARepository <T>{
         this.statementWrapper = new StatementWrapper(connection);
         this.queryGenerator = new QueryGenerator<>(reflectEntity);
         this.resultSetMapper = new ResultSetMapper<>(reflectEntity);
-        this.SELECT_ALL_QUERY = queryGenerator.configure(QueryTemplate.selectAll());
+        this.SELECT_ALL_QUERY = queryGenerator.selectAll();
     }
 
     // to get Class<T>
@@ -38,7 +38,7 @@ public class FJPARepository <T>{
     }
 
     public List<T> findAll(String suffix, List<Object> values) throws SQLException {
-        String query = queryGenerator.configure(String.format("%s %s ;", SELECT_ALL_QUERY, suffix));
+        String query = queryGenerator.configure(String.format("%s %s", SELECT_ALL_QUERY, suffix));
         return statementWrapper.select(query,values, this.resultSetMapper::mapResultSetToInstance);
     }
 
@@ -54,11 +54,10 @@ public class FJPARepository <T>{
         String query = queryGenerator.configure(
             String.format("%s WHERE %s = ? %s", SELECT_ALL_QUERY , fieldName, suffix)
         );
-
         return statementWrapper.select(
             query,
             List.of(fieldValue),
-            resultSet -> this.resultSetMapper.mapResultSetToInstance(resultSet, excludes)
+            resultSet -> this.resultSetMapper.mapResultSetToInstance(resultSet, excludes, false)
         );
     }
 
@@ -67,7 +66,7 @@ public class FJPARepository <T>{
     }
 
     public T findById(Object id, List<Class<?>> excludes) throws SQLException {
-        List<T> lists = findByField(reflectEntity.getIdAttribute().getColumnName(), id, excludes);
+        List<T> lists = findByField("@id", id, excludes);
         return lists.isEmpty() ? null : lists.get(0);
     }
 
@@ -87,7 +86,7 @@ public class FJPARepository <T>{
         }else{
             query = QueryTemplate.updateByCondition(
                 joinAttributesNamesWithoutId(" = ? , ") + " = ?",
-                reflectEntity.getIdAttribute().getColumnName() + " = ?"
+                reflectEntity.getIdAttribute().getSqlColumnName() + " = ?"
             );
         }
 
@@ -107,13 +106,13 @@ public class FJPARepository <T>{
         }
 
         ResultSet resultSet = statementWrapper.update(
-            queryGenerator.configure(query),
+            queryGenerator.configure(query, true),
             values
         );
 
         if(!resultSet.next())
             return null;
-        return this.resultSetMapper.mapResultSetToInstance(resultSet);
+        return this.resultSetMapper.mapResultSetToInstance(resultSet, true);
     }
 
     public List<T> saveOrUpdateAll(List<T> toSaves) throws SQLException {
@@ -127,7 +126,7 @@ public class FJPARepository <T>{
     public String joinAttributesNames(String limiter) {
         return reflectEntity.getAttributes()
                 .stream()
-                .map(ReflectAttribute::getColumnName)
+                .map(ReflectAttribute::getOriginalColumnName)
                 .collect(Collectors.joining(limiter));
     }
 
@@ -135,7 +134,7 @@ public class FJPARepository <T>{
         return reflectEntity.getAttributes()
                 .stream()
                 .filter(attribute-> !attribute.isId())
-                .map(ReflectAttribute::getColumnName)
+                .map(ReflectAttribute::getOriginalColumnName)
                 .collect(Collectors.joining(limiter));
     }
 }

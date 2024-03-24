@@ -22,14 +22,16 @@ import java.util.Map;
 @Getter
 public class ReflectEntity <T>{
     private final Class<T> clazz;
-    private final String tableName;
+    private final String sqlTableName;
+    private final String originalTableName;
     private final List<ReflectAttribute> attributes;
     private final ReflectAttribute idAttribute;
 
     public ReflectEntity(Class<T> clazz) {
         this.clazz = clazz;
-        this.tableName = ReflectEntity.retrieveTableName(clazz);
-        this.attributes = ReflectEntity.retrieveAttributes(clazz);
+        this. originalTableName = ReflectEntity.retrieveTableName(clazz);
+        this.sqlTableName = Utils.toSQLName(originalTableName);
+        this.attributes = retrieveAttributes(clazz);
         this.idAttribute = attributes.stream()
                 .filter(ReflectAttribute::isId)
                 .findFirst().orElseThrow(()->new RuntimeException("@Id is required for one field"));
@@ -43,7 +45,7 @@ public class ReflectEntity <T>{
             T instance = noArgsConstructor.newInstance();
             return invokeSetters(instance, argsValues);
         }catch(InvocationTargetException | InstantiationException | IllegalAccessException error){
-            throw new RuntimeException("Instantiation error for " + getTableName());
+            throw new RuntimeException("Instantiation error for " + getOriginalTableName());
         }
     }
 
@@ -74,7 +76,7 @@ public class ReflectEntity <T>{
         return entity.tableName().isEmpty() ? clazz.getSimpleName().toLowerCase() : entity.tableName();
     }
 
-    public static List<ReflectAttribute> retrieveAttributes(Class<?> clazz){
+    public List<ReflectAttribute> retrieveAttributes(Class<?> clazz){
         List<ReflectAttribute> attributes = new ArrayList<>();
         List<Field> fields = Arrays.stream(clazz.getDeclaredFields())
                 .filter(field -> field.isAnnotationPresent(Column.class)).toList();
@@ -94,15 +96,27 @@ public class ReflectEntity <T>{
                     .findFirst()
                     .orElseThrow(() -> new RuntimeException("Getter method not found for field: " + field.getName()));
 
+            final boolean isRelation = field.isAnnotationPresent(Relation.class);
+            Relation rRef = null;
+
+            if(isRelation){
+                rRef = field.getAnnotation(Relation.class);
+            }
+
+            String originalColumnName = clAnnotation.columnName().isEmpty() ? field.getName().toLowerCase() : clAnnotation.columnName();
             ReflectAttribute attribute =  ReflectAttribute
                     .builder()
-                    .columnName(clAnnotation.columnName().isEmpty() ? field.getName().toLowerCase() : clAnnotation.columnName())
+                    .isRelation(isRelation)
+                    .originalColumnName(originalColumnName)
+                    .sqlColumnName(Utils.toSQLName(originalColumnName))
+                    .originalTableName(originalTableName)
+                    .sqlTableName(sqlTableName)
                     .required(clAnnotation.required())
                     .setter(setterMethod)
                     .getter(getterMethod)
                     .clazz(field.getType())
                     .fieldName(field.getName())
-                    .isRelation(field.isAnnotationPresent(Relation.class))
+                    .refColumnName(isRelation ? rRef.refColumnName() : "")
                     .isId(field.isAnnotationPresent(Id.class))
                 .build();
             attributes.add(attribute);

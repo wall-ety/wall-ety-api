@@ -11,5 +11,4 @@ public class AccountRepository extends FJPARepository<Account> {
     public AccountRepository(Connection connection) {
         super(connection);
     }
-
 }
