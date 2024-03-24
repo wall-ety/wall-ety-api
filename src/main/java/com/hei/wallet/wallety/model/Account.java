@@ -1,9 +1,6 @@
 package com.hei.wallet.wallety.model;
 
-import com.hei.wallet.wallety.fjpa.annotation.Column;
-import com.hei.wallet.wallety.fjpa.annotation.Entity;
-import com.hei.wallet.wallety.fjpa.annotation.Id;
-import com.hei.wallet.wallety.fjpa.annotation.Relation;
+import com.hei.wallet.wallety.fjpa.annotation.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -39,10 +36,12 @@ public class Account implements Serializable {
 
     @Column
     @Relation
+    @ValueGetter
     private Client client;
 
     @Column
     @Relation
+    @ValueGetter
     private Bank bank;
 
     @Relation

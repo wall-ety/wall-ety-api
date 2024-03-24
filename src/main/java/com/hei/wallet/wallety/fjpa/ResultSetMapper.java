@@ -14,6 +14,8 @@ public class ResultSetMapper<T>{
 
     public Object retrieveResultSetValue(ResultSet resultSet, ReflectAttribute attribute, List<Class<?>> excludes, boolean isUpdate) throws SQLException {
         if(attribute.isRelation()){
+            if(isUpdate)
+                return null;
             List<Class<?>> newExcludes = new ArrayList<>(excludes);
             newExcludes.add(attribute.getClazz());
             ReflectEntity<?> childEntity = new ReflectEntity<>(attribute.getClazz());

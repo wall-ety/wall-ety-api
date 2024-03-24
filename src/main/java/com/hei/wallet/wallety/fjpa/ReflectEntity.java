@@ -1,11 +1,9 @@
 package com.hei.wallet.wallety.fjpa;
 
-import com.hei.wallet.wallety.fjpa.annotation.Column;
-import com.hei.wallet.wallety.fjpa.annotation.Entity;
-import com.hei.wallet.wallety.fjpa.annotation.Id;
-import com.hei.wallet.wallety.fjpa.annotation.Relation;
+import com.hei.wallet.wallety.fjpa.annotation.*;
 import lombok.Getter;
 
+import javax.print.attribute.Attribute;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -49,9 +47,19 @@ public class ReflectEntity <T>{
         }
     }
 
-    public Object invokeGetters(T instance, ReflectAttribute attribute) {
+    @SuppressWarnings("unchecked")
+    public static  <T> Object invokeGetters(T instance, ReflectAttribute attribute) {
         try {
-            return attribute.getGetter().invoke(instance);
+            Object object = attribute.getGetter().invoke(instance);
+            if(attribute.getValueGetter() != null){
+                Method setterMethod = Arrays.stream(object.getClass().getMethods())
+                        .filter(method -> method.getName().equals(attribute.getValueGetter()))
+                        .findFirst()
+                        .orElseThrow(() -> new RuntimeException("Value getter no found for field: " + attribute.getValueGetter()));
+                return setterMethod.invoke(object);
+            }
+            return object;
+
         } catch (IllegalAccessException | InvocationTargetException error) {
             throw new RuntimeException(error);
         }
@@ -103,6 +111,11 @@ public class ReflectEntity <T>{
                 rRef = field.getAnnotation(Relation.class);
             }
 
+            ValueGetter valueGetter = null;
+            if(field.isAnnotationPresent(ValueGetter.class)) {
+                valueGetter = field.getAnnotation(ValueGetter.class);
+            }
+
             String originalColumnName = clAnnotation.columnName().isEmpty() ? field.getName().toLowerCase() : clAnnotation.columnName();
             ReflectAttribute attribute =  ReflectAttribute
                     .builder()
@@ -111,6 +124,7 @@ public class ReflectEntity <T>{
                     .sqlColumnName(Utils.toSQLName(originalColumnName))
                     .originalTableName(originalTableName)
                     .sqlTableName(sqlTableName)
+                    .valueGetter(valueGetter != null ? valueGetter.field() : null)
                     .required(clAnnotation.required())
                     .setter(setterMethod)
                     .getter(getterMethod)

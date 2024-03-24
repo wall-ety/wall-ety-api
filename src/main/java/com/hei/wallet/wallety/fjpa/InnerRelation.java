@@ -9,7 +9,7 @@ import lombok.EqualsAndHashCode;
 @Builder
 @AllArgsConstructor
 @EqualsAndHashCode
-public class Relation {
+public class InnerRelation {
     private ReflectAttribute attribute;
     private String sqlDestination;
     private String destination;

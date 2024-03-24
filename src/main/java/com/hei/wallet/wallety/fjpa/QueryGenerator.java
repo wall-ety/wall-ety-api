@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 public class QueryGenerator<T> {
     private final ReflectEntity<T> reflectEntity;
     private static List<String> usedRelations = new ArrayList<>();
-    private static List<Relation> relations = new ArrayList<>();
+    private static List<InnerRelation> innerRelations = new ArrayList<>();
 
     public String getSqlFormat(ReflectAttribute attribute, boolean isUpdate){
         return isUpdate ? attribute.getSqlColumnName() : String.format("%s.%s", attribute.getSqlTableName(), attribute.getSqlColumnName());
@@ -56,13 +56,13 @@ public class QueryGenerator<T> {
                     ));
 
                     if(attribute.isRelation()){
-                        final int lastIndex = relations.size();
+                        final int lastIndex = innerRelations.size();
                         ChildGenerator childGenerator = getAttributeQueryGenerator(attribute);
                         simpleFields.append(" , ");
                         simpleFields.append(childGenerator.getQueryGenerator().getFields());
 
-                        relations.add(lastIndex > 0 ? lastIndex - 1 : 0,
-                            Relation
+                        innerRelations.add(lastIndex > 0 ? lastIndex - 1 : 0,
+                            InnerRelation
                                 .builder()
                                 .destination(childGenerator.getReflectEntity().getOriginalTableName())
                                 .sqlDestination(childGenerator.getReflectEntity().getSqlTableName())
@@ -81,19 +81,19 @@ public class QueryGenerator<T> {
         queryBuilder.append(" FROM ");
         queryBuilder.append(reflectEntity.getSqlTableName());
 
-        relations.forEach(relation -> {
+        innerRelations.forEach(innerRelation -> {
             String query = String.format(
                 " INNER JOIN %s ON %s.\"%s\" = %s.%s",
-                relation.getSqlDestination(),
-                relation.getSqlDestination(),
-                relation.getAttribute().getRefColumnName(),
-                relation.getAttribute().getSqlTableName(),
-                relation.getAttribute().getSqlColumnName()
+                innerRelation.getSqlDestination(),
+                innerRelation.getSqlDestination(),
+                innerRelation.getAttribute().getRefColumnName(),
+                innerRelation.getAttribute().getSqlTableName(),
+                innerRelation.getAttribute().getSqlColumnName()
             );
             queryBuilder.append(query);
         });
         usedRelations = new ArrayList<>();
-        relations = new ArrayList<>();
+        innerRelations = new ArrayList<>();
         return queryBuilder.toString();
     }
 

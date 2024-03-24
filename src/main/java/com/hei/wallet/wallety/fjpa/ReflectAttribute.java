@@ -15,6 +15,7 @@ public class ReflectAttribute {
     private String originalTableName;
     private String sqlTableName;
     private String fieldName;
+    private String valueGetter;
     private boolean required;
     private boolean isId;
     private Method setter;
