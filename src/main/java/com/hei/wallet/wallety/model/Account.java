@@ -44,6 +44,7 @@ public class Account implements Serializable {
     @ValueGetter
     private Bank bank;
 
+    // TODO: update fjpa to support non column fields:
     @Relation
     private BalanceHistory balance;
 }
