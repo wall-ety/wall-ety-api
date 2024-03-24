@@ -7,8 +7,8 @@ import lombok.*;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.sql.Date;
 import java.time.Instant;
+import java.time.LocalDate;
 
 @Data
 @Builder
@@ -27,7 +27,7 @@ public class Client implements Serializable {
     private String firstName;
 
     @Column
-    private Date birthdate;
+    private LocalDate birthdate;
 
     @Column(columnName = "month_salary")
     private BigDecimal monthSalary;

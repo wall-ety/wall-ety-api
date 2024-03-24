@@ -37,6 +37,8 @@ public class ResultSetMapper<T>{
         switch (attribute.getClazz().getSimpleName()) {
             case "Instant":
                 return resultSet.getTimestamp(columnName).toInstant();
+            case "LocalDate":
+                return resultSet.getDate(columnName).toLocalDate();
             case "BigDecimal":
                 return resultSet.getBigDecimal(columnName);
             case "float":

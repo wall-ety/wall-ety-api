@@ -27,7 +27,7 @@ public class CategoryControllerIT {
         return Category
                 .builder()
                 .id(id)
-                .name("name")
+                .name("name" + id)
                 .type(CategoryType.DEBIT)
                 .createdAt(Instant.now())
                 .updatedAt(Instant.now())
@@ -64,14 +64,7 @@ public class CategoryControllerIT {
 
     @Test
     public void crupdateCategory(){
-        Instant currentInstant = Instant.now();
-        Category toSave =  Category.builder()
-                .id("NEW_CATEGORY")
-                .updatedAt(currentInstant)
-                .createdAt(currentInstant)
-                .type(CategoryType.DEBIT)
-                .name("NEW_CATEGORY_NAME")
-                .build();
+        Category toSave = generateCategory("NEW_CATEGORY");
 
         List<Category> createLists = categoryController.saveOrUpdateAll(
             List.of(toSave)
