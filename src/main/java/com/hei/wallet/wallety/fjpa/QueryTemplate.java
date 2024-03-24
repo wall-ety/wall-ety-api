@@ -5,6 +5,11 @@ public class QueryTemplate {
         return "SELECT * FROM @entity";
     }
 
+    //for test
+    public static String deleteAll(){
+        return "DELETE FROM @entity";
+    }
+
     public static String selectById(){
         return "SELECT * FROM @entity WHERE @id = ?";
     }

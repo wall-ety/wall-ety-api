@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import java.lang.reflect.ParameterizedType;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -131,6 +132,12 @@ public class FJPARepository <T>{
                 .stream()
                 .map(ReflectAttribute::getOriginalColumnName)
                 .collect(Collectors.joining(limiter));
+    }
+
+    public void deleteAll() throws SQLException {
+        String query = queryGenerator.configure(QueryTemplate.deleteAll());
+        PreparedStatement statement = statementWrapper.prepared(query, List.of());
+        statement.executeUpdate();
     }
 
     public String joinAttributesNamesWithoutId(String limiter){
