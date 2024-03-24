@@ -373,7 +373,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Balance'
+                $ref: '#/components/schemas/BalanceInfo'
         '400':
           $ref: '#/components/responses/BadRequest'
         '403':
@@ -596,6 +596,16 @@ components:
           type: string
           format: date-time
           example: 2024-03-20T14:30:00Z
+    BalanceInfo:
+      type: object
+      properties:
+        balance:
+          $ref: "#/components/schemas/Balance"
+        loan:
+          type: number
+          description: borrowed money
+        loanInterest:
+          type: number
     Bank:
       type: object
       properties:
