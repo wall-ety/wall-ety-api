@@ -1,0 +1,396 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "wallety",
+    "dateExported": "2024-03-24T17:33:43.177Z",
+    "version": "1.1",
+    "folders": [
+        {
+            "_id": "687a992a-8bdf-4fba-91e4-944615cee537",
+            "name": "health",
+            "containerId": "",
+            "created": "2024-03-23T12:47:15.609Z",
+            "sortNum": 20000
+        },
+        {
+            "_id": "00da0903-95fb-4933-81f1-9083907dc034",
+            "name": "clients",
+            "containerId": "",
+            "created": "2024-03-23T12:01:04.688Z",
+            "sortNum": 25000
+        },
+        {
+            "_id": "24e76834-3d38-43d0-92fa-28b702944deb",
+            "name": "category",
+            "containerId": "",
+            "created": "2024-03-23T12:50:38.724Z",
+            "sortNum": 30000
+        },
+        {
+            "_id": "30d9db15-3a8c-4741-9dfe-9b6f1e357d9b",
+            "name": "banks",
+            "containerId": "",
+            "created": "2024-03-23T13:10:23.572Z",
+            "sortNum": 35000
+        },
+        {
+            "_id": "37fe222a-180a-4d22-a961-2f6409ab8a6b",
+            "name": "accounts",
+            "containerId": "",
+            "created": "2024-03-23T13:09:36.020Z",
+            "sortNum": 37500
+        },
+        {
+            "_id": "55b46b1c-acb7-4ef9-95f1-d58ad767eb7c",
+            "name": "balances",
+            "containerId": "",
+            "created": "2024-03-23T13:08:57.133Z",
+            "sortNum": 40000
+        },
+        {
+            "_id": "592fa214-5dd3-4329-b0ae-728220c3fce5",
+            "name": "transactions",
+            "containerId": "",
+            "created": "2024-03-23T14:55:35.605Z",
+            "sortNum": 70000
+        }
+    ],
+    "requests": [
+        {
+            "_id": "407e7882-93f5-4a63-9b96-f7fd2979f4fd",
+            "colId": "088fbb99-a75c-4b29-8747-dd3740ee328b",
+            "containerId": "00da0903-95fb-4933-81f1-9083907dc034",
+            "name": "getAllClients",
+            "url": "{{API_URL}}/clients",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2024-03-22T22:16:30.048Z",
+            "modified": "2024-03-22T22:17:35.387Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "b93781e9-476c-4c5a-a51d-209ce570616c",
+            "colId": "088fbb99-a75c-4b29-8747-dd3740ee328b",
+            "containerId": "00da0903-95fb-4933-81f1-9083907dc034",
+            "name": "getClientsById",
+            "url": "{{API_URL}}/clients/ricka",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2024-03-22T22:17:50.579Z",
+            "modified": "2024-03-22T22:17:59.454Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "4e2c6f6d-f5f1-4276-9062-c8a31466d5fa",
+            "colId": "088fbb99-a75c-4b29-8747-dd3740ee328b",
+            "containerId": "00da0903-95fb-4933-81f1-9083907dc034",
+            "name": "crupdateClients",
+            "url": "{{API_URL}}/clients",
+            "method": "PUT",
+            "sortNum": 30000,
+            "created": "2024-03-22T22:18:11.313Z",
+            "modified": "2024-03-23T13:55:04.337Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "[\n  {\n  \"id\": \"id1\",\n  \"lastName\": \"jhon\",\n  \"firstName\": \"John\",\n  \"birthdate\": \"2024-11-30T21:00:00Z\",\n  \"monthSalary\": 6000,\n  \"createdAt\": \"2024-11-30T21:00:00Z\",\n  \"updatedAt\": \"2024-11-30T21:00:00Z\"\n}\n]",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "0e11cdfe-07d1-4f0d-9bd0-cde18bae5806",
+            "colId": "088fbb99-a75c-4b29-8747-dd3740ee328b",
+            "containerId": "687a992a-8bdf-4fba-91e4-944615cee537",
+            "name": "ping",
+            "url": "{{API_URL}}/ping",
+            "method": "GET",
+            "sortNum": 40000,
+            "created": "2024-03-23T12:47:23.110Z",
+            "modified": "2024-03-23T12:47:32.634Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "78d2016e-d6a8-4c53-bfa4-823cc85c4052",
+            "colId": "088fbb99-a75c-4b29-8747-dd3740ee328b",
+            "containerId": "687a992a-8bdf-4fba-91e4-944615cee537",
+            "name": "getDummies",
+            "url": "{{API_URL}}/dummy-table",
+            "method": "GET",
+            "sortNum": 50000,
+            "created": "2024-03-23T12:48:45.651Z",
+            "modified": "2024-03-23T12:48:58.156Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "9b99cb1c-3e51-46fa-9aad-b39d98e30c45",
+            "colId": "088fbb99-a75c-4b29-8747-dd3740ee328b",
+            "containerId": "24e76834-3d38-43d0-92fa-28b702944deb",
+            "name": "getCategories",
+            "url": "{{API_URL}}/categories",
+            "method": "GET",
+            "sortNum": 60000,
+            "created": "2024-03-23T12:50:47.045Z",
+            "modified": "2024-03-23T12:50:56.194Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "4a26fedb-17f3-471e-8945-6523e9cda18f",
+            "colId": "088fbb99-a75c-4b29-8747-dd3740ee328b",
+            "containerId": "24e76834-3d38-43d0-92fa-28b702944deb",
+            "name": "crupdateCategories",
+            "url": "{{API_URL}}/categories",
+            "method": "PUT",
+            "sortNum": 70000,
+            "created": "2024-03-23T12:51:06.330Z",
+            "modified": "2024-03-23T16:19:26.775Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "[\n  {\n    \"id\": \"id1\",\n    \"name\": \"Food\",\n    \"type\": \"DEBIT\",\n    \"updatedAt\": \"2024-03-20T14:30:00Z\",\n    \"createdAt\": \"2024-03-20T14:30:00Z\"\n  },\n  {\n    \"id\": \"id2\",\n    \"name\": \"PC\",\n    \"type\": \"CREDIT\",\n    \"updatedAt\": \"2024-03-20T14:30:00Z\",\n    \"createdAt\": \"2024-03-20T14:30:00Z\"\n  }\n]",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "253242d5-dc90-4cc7-8864-ec3fca04d836",
+            "colId": "088fbb99-a75c-4b29-8747-dd3740ee328b",
+            "containerId": "24e76834-3d38-43d0-92fa-28b702944deb",
+            "name": "getCategoryById",
+            "url": "{{API_URL}}/categories/id1",
+            "method": "GET",
+            "sortNum": 80000,
+            "created": "2024-03-23T12:54:41.587Z",
+            "modified": "2024-03-23T13:01:47.569Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "921a15ce-d422-49ff-83f6-f0b8b150a2e3",
+            "colId": "088fbb99-a75c-4b29-8747-dd3740ee328b",
+            "containerId": "55b46b1c-acb7-4ef9-95f1-d58ad767eb7c",
+            "name": "getAllByAccountId",
+            "url": "{{API_URL}}/accounts/id1/balances",
+            "method": "GET",
+            "sortNum": 90000,
+            "created": "2024-03-23T13:09:05.092Z",
+            "modified": "2024-03-23T14:54:21.512Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "b2e259d6-5804-436a-a400-f20fc1b1e55c",
+            "colId": "088fbb99-a75c-4b29-8747-dd3740ee328b",
+            "containerId": "37fe222a-180a-4d22-a961-2f6409ab8a6b",
+            "name": "getAllAccounts",
+            "url": "{{API_URL}}/accounts",
+            "method": "GET",
+            "sortNum": 110000,
+            "created": "2024-03-23T13:09:44.174Z",
+            "modified": "2024-03-23T14:21:57.812Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "f34edab2-2b76-464b-a302-26cf404746ff",
+            "colId": "088fbb99-a75c-4b29-8747-dd3740ee328b",
+            "containerId": "37fe222a-180a-4d22-a961-2f6409ab8a6b",
+            "name": "crupdateAccounts",
+            "url": "{{API_URL}}/accounts",
+            "method": "PUT",
+            "sortNum": 120000,
+            "created": "2024-03-23T13:10:03.680Z",
+            "modified": "2024-03-24T13:29:02.588Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "[\n  {\n    \"id\": \"id1\",\n    \"name\": \"Money\",\n    \"updatedAt\": \"2024-03-20T14:30:00Z\",\n    \"createdAt\": \"2024-03-20T14:30:00Z\",\n    \"idClient\": \"id1\",\n    \"idBank\": \"id1\",\n    \"authorizeCredits\": false\n  }\n]",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "6f8ec1b8-df61-4f5d-93c5-8f28fe430b6c",
+            "colId": "088fbb99-a75c-4b29-8747-dd3740ee328b",
+            "containerId": "30d9db15-3a8c-4741-9dfe-9b6f1e357d9b",
+            "name": "getAllBanks",
+            "url": "{{API_URL}}/banks",
+            "method": "GET",
+            "sortNum": 130000,
+            "created": "2024-03-23T13:10:36.334Z",
+            "modified": "2024-03-23T13:10:44.159Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "51c48ccb-00fe-40cb-a2cc-a0521458718d",
+            "colId": "088fbb99-a75c-4b29-8747-dd3740ee328b",
+            "containerId": "30d9db15-3a8c-4741-9dfe-9b6f1e357d9b",
+            "name": "crupdateBanks",
+            "url": "{{API_URL}}/banks",
+            "method": "PUT",
+            "sortNum": 140000,
+            "created": "2024-03-23T13:13:57.135Z",
+            "modified": "2024-03-23T16:18:00.440Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "[\n  {\n    \"id\": \"id1\",\n    \"name\": \"BOI\",\n    \"updatedAt\": \"2024-03-20T14:30:00Z\",\n    \"createdAt\": \"2024-03-20T14:30:00Z\",\n    \"authorizeCredits\": false,\n    \"firstWeekLoan\": 0.9,\n    \"subsequentLoan\": 0.11\n  }\n]",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "0422e1f4-8afa-4398-8e55-3bc06af6b2bc",
+            "colId": "088fbb99-a75c-4b29-8747-dd3740ee328b",
+            "containerId": "30d9db15-3a8c-4741-9dfe-9b6f1e357d9b",
+            "name": "getBankById",
+            "url": "{{API_URL}}/banks/id1",
+            "method": "GET",
+            "sortNum": 150000,
+            "created": "2024-03-23T13:49:28.875Z",
+            "modified": "2024-03-23T13:49:50.071Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "aeba683a-edb0-4541-ad2d-15ac017828b2",
+            "colId": "088fbb99-a75c-4b29-8747-dd3740ee328b",
+            "containerId": "37fe222a-180a-4d22-a961-2f6409ab8a6b",
+            "name": "getAccountById",
+            "url": "{{API_URL}}/accounts/id1",
+            "method": "GET",
+            "sortNum": 160000,
+            "created": "2024-03-23T14:27:21.729Z",
+            "modified": "2024-03-23T14:27:38.022Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "abca5378-b5ed-496d-a3c1-240d49afd6d3",
+            "colId": "088fbb99-a75c-4b29-8747-dd3740ee328b",
+            "containerId": "55b46b1c-acb7-4ef9-95f1-d58ad767eb7c",
+            "name": "getCurrentBalanceByAccountId",
+            "url": "{{API_URL}}/accounts/id1/balances/current",
+            "method": "GET",
+            "sortNum": 170000,
+            "created": "2024-03-23T14:54:50.197Z",
+            "modified": "2024-03-23T14:55:00.554Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "0867b5cd-c22c-435c-9770-69473748a829",
+            "colId": "088fbb99-a75c-4b29-8747-dd3740ee328b",
+            "containerId": "592fa214-5dd3-4329-b0ae-728220c3fce5",
+            "name": "getAllByAccountId",
+            "url": "{{API_URL}}/accounts/id1/transactions",
+            "method": "GET",
+            "sortNum": 190000,
+            "created": "2024-03-23T14:55:44.604Z",
+            "modified": "2024-03-23T15:33:07.522Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "98ceffc8-96f1-44a7-b73f-6c6290949422",
+            "colId": "088fbb99-a75c-4b29-8747-dd3740ee328b",
+            "containerId": "592fa214-5dd3-4329-b0ae-728220c3fce5",
+            "name": "postTransactions",
+            "url": "{{API_URL}}/transactions",
+            "method": "POST",
+            "sortNum": 200000,
+            "created": "2024-03-23T15:35:47.659Z",
+            "modified": "2024-03-24T13:53:36.735Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "[\n  {\n    \"id\": \"id1\",\n    \"type\": \"CREDIT\",\n    \"reason\": \"another money to save\",\n    \"amount\": 500,\n    \"transactionDatetime\": \"2024-03-20T14:30:00Z\",\n    \"idAccount\": \"id1\",\n    \"idCategory\": \"id2\",\n    \"label\": \"season1\"\n  }\n]",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "0ae4f4a2-f9dd-45cd-ae0c-3ffe236c28de",
+            "colId": "088fbb99-a75c-4b29-8747-dd3740ee328b",
+            "containerId": "592fa214-5dd3-4329-b0ae-728220c3fce5",
+            "name": "wrongCategory",
+            "url": "{{API_URL}}/transactions",
+            "method": "POST",
+            "sortNum": 210000,
+            "created": "2024-03-23T16:47:35.468Z",
+            "modified": "2024-03-23T16:48:40.806Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "[\n  {\n    \"id\": \"id5\",\n    \"type\": \"CREDIT\",\n    \"reason\": \"another money to save\",\n    \"amount\": 500,\n    \"transactionDatetime\": \"2024-03-20T14:30:00Z\",\n    \"idAccount\": \"id1\",\n    \"idCategory\": \"id1\",\n    \"label\": \"season1\"\n  }\n]",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "0bcc660d-3254-4eae-b633-ae846b83e325",
+            "colId": "088fbb99-a75c-4b29-8747-dd3740ee328b",
+            "containerId": "592fa214-5dd3-4329-b0ae-728220c3fce5",
+            "name": "notFoundAccount",
+            "url": "{{API_URL}}/transactions",
+            "method": "POST",
+            "sortNum": 220000,
+            "created": "2024-03-23T16:49:28.947Z",
+            "modified": "2024-03-23T16:49:54.839Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "[\n  {\n    \"id\": \"id5\",\n    \"type\": \"CREDIT\",\n    \"reason\": \"another money to save\",\n    \"amount\": 500,\n    \"transactionDatetime\": \"2024-03-20T14:30:00Z\",\n    \"idAccount\": \"not_found_id\",\n    \"idCategory\": \"id1\",\n    \"label\": \"season1\"\n  }\n]",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "f1fca5c4-56c7-4ed5-989c-45cdc46ed205",
+            "colId": "088fbb99-a75c-4b29-8747-dd3740ee328b",
+            "containerId": "592fa214-5dd3-4329-b0ae-728220c3fce5",
+            "name": "notEnoughMoney",
+            "url": "{{API_URL}}/transactions",
+            "method": "POST",
+            "sortNum": 230000,
+            "created": "2024-03-23T16:50:12.557Z",
+            "modified": "2024-03-23T16:50:43.196Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "[\n  {\n    \"id\": \"id5\",\n    \"type\": \"DEBIT\",\n    \"reason\": \"another money to save\",\n    \"amount\": 1000000000,\n    \"transactionDatetime\": \"2024-03-20T14:30:00Z\",\n    \"idAccount\": \"id1\",\n    \"idCategory\": \"id1\",\n    \"label\": \"season1\"\n  }\n]",
+                "form": []
+            },
+            "tests": []
+        }
+    ],
+    "settings": {
+        "envId": "94616226-3d6c-4472-bc39-6a56d6db88eb"
+    }
+}
