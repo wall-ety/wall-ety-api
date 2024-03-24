@@ -1,19 +1,23 @@
 package com.hei.wallet.wallety.fjpa;
 
 public class QueryTemplate {
-    public static String getSelectAllQuery(String tableName){
-        return String.format("SELECT * FROM %s", tableName);
+    public static String selectAll(){
+        return "SELECT * FROM @entity";
     }
 
-    public static String getSelectWithConditionQuery(String tableName, String condition){
-        return String.format("SELECT * FROM %s WHERE %s", tableName, condition);
+    public static String selectById(){
+        return "SELECT * FROM @entity WHERE @id = ?";
     }
 
-    public static String getUpdateQuery(String tableName, String columnValues, String condition){
-        return String.format("UPDATE %s SET %s WHERE %s", tableName, columnValues, condition);
+    public static String selectByCondition(String condition){
+        return String.format("SELECT * FROM @entity WHERE %s", condition);
     }
 
-    public static String getInsertQuery(String tableName, String columns,String values){
-        return String.format("INSERT INTO %s(%s) VALUES ( %s )", tableName, columns, values);
+    public static String updateByCondition(String columnValues, String condition){
+        return String.format("UPDATE @entity SET %s WHERE %s", columnValues, condition);
+    }
+
+    public static String insert(String columns,String values){
+        return String.format("INSERT INTO @entity(%s) VALUES ( %s )", columns, values);
     }
 }

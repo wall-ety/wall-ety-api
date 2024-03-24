@@ -1,13 +1,14 @@
 package com.hei.wallet.wallety.repository;
 
 import com.hei.wallet.wallety.fjpa.FJPARepository;
-import com.hei.wallet.wallety.fjpa.StatementWrapper;
 import com.hei.wallet.wallety.model.Category;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Connection;
+
 @Repository
 public class CategoryRepository extends FJPARepository<Category> {
-    public CategoryRepository(StatementWrapper statementWrapper) {
-        super(Category.class, statementWrapper);
+    public CategoryRepository(Connection connection) {
+        super(connection);
     }
 }

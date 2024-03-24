@@ -1,7 +1,6 @@
 package com.hei.wallet.wallety.fjpa;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 
 import java.sql.*;
 import java.time.Instant;
@@ -11,7 +10,6 @@ import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-@Component
 @RequiredArgsConstructor
 public class StatementWrapper {
     final private Connection connection;

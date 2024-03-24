@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.Instant;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -31,5 +32,4 @@ public class BalanceHistory implements Serializable {
     @Column
     @Relation
     private Account account;
-
 }

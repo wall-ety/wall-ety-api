@@ -7,6 +7,6 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
-public @interface Relation {
-    String refColumnName() default "id";
+public @interface ValueGetter {
+    String field() default "getId";
 }
