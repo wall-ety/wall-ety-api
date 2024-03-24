@@ -1,6 +1,7 @@
 package com.hei.wallet.wallety.fjpa;
 
 import lombok.Getter;
+import lombok.Setter;
 
 import java.lang.reflect.ParameterizedType;
 import java.sql.Connection;
@@ -14,9 +15,11 @@ import java.util.stream.Collectors;
 public class FJPARepository <T>{
     protected final ReflectEntity<T> reflectEntity;
     protected final QueryGenerator<T> queryGenerator;
-    protected final ResultSetMapper<T> resultSetMapper;
     protected final StatementWrapper statementWrapper;
     protected final String SELECT_ALL_QUERY;
+
+    @Setter // to remap custom field
+    protected ResultSetMapper<T> resultSetMapper;
 
     @SuppressWarnings("unchecked")
     public FJPARepository(Connection connection) {
@@ -71,7 +74,7 @@ public class FJPARepository <T>{
     }
 
     public T saveOrUpdate(T toSave) throws SQLException {
-        final Object idValue = reflectEntity.invokeGetters(toSave, reflectEntity.getIdAttribute());
+        final Object idValue = ReflectEntity.invokeGetters(toSave, reflectEntity.getIdAttribute());
         if(idValue == null)
             return null;
 
@@ -94,15 +97,15 @@ public class FJPARepository <T>{
         if(isCreate){
             values = reflectEntity.getAttributes()
                     .stream()
-                    .map(attribute -> reflectEntity.invokeGetters(toSave, attribute))
+                    .map(attribute -> ReflectEntity.invokeGetters(toSave, attribute))
                     .collect(Collectors.toList());
         }else{
             values = reflectEntity.getAttributes()
                     .stream()
                     .filter(attribute -> !attribute.isId())
-                    .map(attribute -> reflectEntity.invokeGetters(toSave, attribute))
+                    .map(attribute -> ReflectEntity.invokeGetters(toSave, attribute))
                     .collect(Collectors.toList());
-            values.add(reflectEntity.invokeGetters(toSave, reflectEntity.getIdAttribute()));
+            values.add(ReflectEntity.invokeGetters(toSave, reflectEntity.getIdAttribute()));
         }
 
         ResultSet resultSet = statementWrapper.update(
