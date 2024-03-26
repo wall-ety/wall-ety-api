@@ -99,35 +99,26 @@ paths:
         '500':
           $ref: '#/components/responses/InternalServerError'
   /categories/{idCategory}:
-    put:
+    get:
       tags:
         - Categories
-      summary: Create or Update list of Categories
+      summary: Get one category by id
       parameters:
         - in: path
           name: idCategory
-          description: If tf category to retrieve
+          description: Id of the category to retrieve
           required: true
           schema:
             type: string
             format: uuid
-      operationId: crupdateCategories
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: array
-              items:
-                $ref: '#/components/schemas/Category'
+      operationId: getCategoryById
       responses:
         '200':
-          description: The category that was crupdated
+          description: The category which has the given id
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Category'
+                $ref: '#/components/schemas/Category'
         '400':
           $ref: '#/components/responses/BadRequest'
         '403':
@@ -344,6 +335,14 @@ paths:
         - Banks
       summary: Get one Bank by id
       operationId: getBanksById
+      parameters:
+        - in: path
+          name: idBank
+          description: id of the bank to retrieve
+          required: true
+          schema:
+            type: string
+            format: uuid
       responses:
         '200':
           description: Successful response
@@ -761,24 +760,20 @@ components:
           format: uuid
         name:
           type: string
-  responses:
     ApiErrorResponse:
-      description: Api Error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-              code:
-                type: number
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: number
+  responses:
     BadRequest:
       description: Bad Request
       content:
         application/json:
           schema:
-            $ref: "#/components/responses/ApiErrorResponse"
+            $ref: "#/components/schemas/ApiErrorResponse"
           example:
             message: "Bad Request"
             code: 400
@@ -787,7 +782,7 @@ components:
       content:
         application/json:
           schema:
-            $ref: "#/components/responses/ApiErrorResponse"
+            $ref: "#/components/schemas/ApiErrorResponse"
           example:
             message: "Forbidden"
             code: 403
@@ -796,7 +791,7 @@ components:
       content:
         application/json:
           schema:
-            $ref: "#/components/responses/ApiErrorResponse"
+            $ref: "#/components/schemas/ApiErrorResponse"
           example:
             message: "Not Found"
             code: 404
@@ -805,7 +800,7 @@ components:
       content:
         application/json:
           schema:
-            $ref: "#/components/responses/ApiErrorResponse"
+            $ref: "#/components/schemas/ApiErrorResponse"
           example:
             message: "Internal Server Error"
             code: 500

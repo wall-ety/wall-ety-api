@@ -18,7 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 public class ClientService {
     private final ClientRepository clientRepository;
-    private static int MINIMUM_AGE=22;
+    private final static int MINIMUM_AGE=22;
 
     public static void verifyAge(LocalDate birthDate) throws IllegalArgumentException {
         LocalDate currentDate = LocalDate.now();

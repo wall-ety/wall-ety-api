@@ -64,7 +64,7 @@ public class ResultSetMapper<T>{
             } catch (SQLException error) {
                 throw new RuntimeException(error.getMessage());
             }
-        };
+        }
 
         return reflectEntity.createInstance(values);
     }

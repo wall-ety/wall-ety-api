@@ -2,7 +2,6 @@ package com.hei.wallet.wallety.endpoint.rest.mapper;
 
 import com.hei.wallet.wallety.endpoint.rest.model.Balance;
 import com.hei.wallet.wallety.model.BalanceHistory;
-import com.hei.wallet.wallety.model.BalanceInfo;
 import org.springframework.stereotype.Component;
 
 @Component
